@@ -1,0 +1,406 @@
+[
+     {
+          "id": 3,
+          "title": "escritorio4",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 4,
+          "title": "escritorio6",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 5,
+          "title": "editado desde insomnia",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ],
+          "status": true
+     },
+     {
+          "id": 6,
+          "title": "escritorio8",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 7,
+          "title": "escritorio9",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ],
+          "status": true
+     },
+     {
+          "id": 8,
+          "title": "escritorio10",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ],
+          "status": true
+     },
+     {
+          "id": 9,
+          "title": "escritorio11",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 10,
+          "title": "escritorio12",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 11,
+          "title": "escritorio13",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 12,
+          "title": "escritorio14",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 13,
+          "title": "escritorio15",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": false,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 14,
+          "title": "escritorio16",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ],
+          "status": true
+     },
+     {
+          "id": 15,
+          "title": "escritorio17",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": false,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 16,
+          "title": "escritorio18",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": false,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 17,
+          "title": "escritorio19",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 18,
+          "title": "creado desde insomnia",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 19,
+          "title": "creado desde insomnia 2",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 20,
+          "title": "creado desde insomnia 3",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 21,
+          "title": "creado desde insomnia 4",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 22,
+          "title": "creado desde insomnia 5",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 23,
+          "title": "creado desde insomnia 6",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 24,
+          "title": "creado desde insomnia 7",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 25,
+          "title": "creado desde insomnia 8",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 26,
+          "title": "creado desde insomnia 9",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 27,
+          "title": "creado desde insomnia 10",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 28,
+          "title": "creado desde insomnia 11",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 29,
+          "title": "creado desde insomnia 12",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 30,
+          "title": "creado desde insomnia 13",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     },
+     {
+          "id": 31,
+          "title": "creado desde insomnia 14",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
+     }
+]
