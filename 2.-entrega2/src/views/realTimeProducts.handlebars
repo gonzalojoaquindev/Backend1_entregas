@@ -11,6 +11,7 @@
     <input type="text" id="category" label="Categoria" placeholder="Categoria">
     {{!-- <input type="submit" value="Enviar"> --}}
     <button onclick="enviarMensaje()">Enviar</button>
+    <div id="divProducts"></div>
 
     {{!-- <form action="/api/realtimeproducts" method="post">
         <input type="text" id="title" label="Titulo" placeholder="titulo">
@@ -23,13 +24,7 @@
         <input type="submit" value="Enviar">
     </form>
     --}}
-    {{#each products}}
-    <div>
-        <ul>
-            <li>{{this.title}} - {{this.description}} - ${{this.price}}</li>
-        </ul>
-    </div>
-    {{/each}}
+
 
     <input type="text" id="title">
     <a href="/api/products">Home</a>

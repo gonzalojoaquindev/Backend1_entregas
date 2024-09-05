@@ -1,23 +1,7 @@
 console.log("hola mundo desde socket realtime")
 const inputMensaje = document.getElementById("mensaje")
-/* const inputTitle = document.getElementById("title") */
-/* 
-let title = document.getElementById('title').value
-let description = document.getElementById('description').value
-let code = document.getElementById('code').value
-let price = document.getElementById('price').value
-let status = document.getElementById('status').value
-let stock = document.getElementById('stock').value
-let category = document.getElementById('category').value */
 
-
-let obj = {
-    title: title,
-    description: description,
-
-}
-
-
+const divProducts = document.getElementById("divProducts")
 
 function enviarMensaje() {
     let title = document.getElementById('title').value
@@ -50,14 +34,32 @@ function enviarMensaje() {
 
 
 const socket = io()
-const divTemperatura = document.getElementById('temperatura')
 
-socket.on("nuevaLecturaTemperatura", datos => {
-    //console.log(`La temperatura actual es de °${datos}`) 
-    divTemperatura.textContent = `La temperatura actual es de °${datos}`
+socket.on("previousProducts", productos => {
+    productos.forEach(producto => {
+        let p = document.createElement("p")
+        p.classList.add("producto")
+        let s = document.createElement("strong")
+        let sp = document.createElement("span")
+        let i = document.createElement("i")
+
+        s.textContent = producto.title
+        sp.textContent = " hola"
+        i.textContent = producto.description
+        p.append(s, sp, i)
+        divProducts.append(p)
+        divProducts.scrollTop = divProducts.scrollHeight
+    })
 })
 
-socket.on("nuevoMensaje", (nombre, mensaje) => {
+/* const divTemperatura = document.getElementById('temperatura')
+ */
+/* socket.on("nuevaLecturaTemperatura", datos => {
+    //console.log(`La temperatura actual es de °${datos}`)
+    divTemperatura.textContent = `La temperatura actual es de °${datos}`
+}) */
+
+/* socket.on("nuevoMensaje", (nombre, mensaje) => {
     let p = document.createElement("p")
     p.classList.add("mensaje")
     let s = document.createElement("strong")
@@ -71,9 +73,11 @@ socket.on("nuevoMensaje", (nombre, mensaje) => {
     divMensajes.append(p)
     divMensajes.scrollTop = divMensajes.scrollHeight
 
-})
+}) */
 
-socket.on("mensajesPrevios", mensajes => {
+
+
+/* socket.on("mensajesPrevios", mensajes => {
     mensajes.forEach(datos => {
         let p = document.createElement("p")
         p.classList.add("mensaje")
@@ -88,15 +92,15 @@ socket.on("mensajesPrevios", mensajes => {
         divMensajes.append(p)
         divMensajes.scrollTop = divMensajes.scrollHeight
     })
-})
-
-
-/* socket.on("nuevo", datos => {
-    //console.log(`La temperatura actual es de °${datos}`) 
-    divTemperatura.textContent = `La temperatura actual es de °${datos}`
 }) */
 
 
+/* socket.on("nuevo", datos => {
+    //console.log(`La temperatura actual es de °${datos}`)
+    divTemperatura.textContent = `La temperatura actual es de °${datos}`
+}) */
+
+/*
 socket.on("previousProducts", products => {
     console.log(products)
     products.forEach(product => {
@@ -113,7 +117,7 @@ socket.on("previousProducts", products => {
         divMensajes.append(p)
         divMensajes.scrollTop = divMensajes.scrollHeight
     })
-})
+}) */
 
 /* este está casi listo */
 /* socket.on("nuevo", dato => {

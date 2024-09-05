@@ -152,5 +152,35 @@
           "status": "",
           "stock": "",
           "category": ""
+     },
+     {
+          "id": 17,
+          "title": "nuevo",
+          "description": "descrip",
+          "code": "codigo",
+          "price": "123",
+          "status": "true",
+          "stock": "1",
+          "category": "gtd"
+     },
+     {
+          "id": 18,
+          "title": "nuevo2",
+          "description": "df",
+          "code": "df",
+          "price": "3",
+          "status": "fdf",
+          "stock": "2",
+          "category": "fd"
+     },
+     {
+          "id": 19,
+          "title": "fdf",
+          "description": "dfd",
+          "code": "df",
+          "price": "44",
+          "status": "fds",
+          "stock": "3",
+          "category": "fd"
      }
 ]
