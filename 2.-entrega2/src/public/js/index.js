@@ -2,13 +2,11 @@ console.log("hola mundo desde socket io")
 const inputMensaje = document.getElementById("mensaje")
 const divProductos = document.getElementById("productos")
 
-const nombre = prompt("ingrese su nombre")
+
 const socket = io()
 const divTemperatura = document.getElementById('temperatura')
 
-if (nombre) {
-    document.title = nombre
-}
+
 socket.on("nuevaLecturaTemperatura", datos => {
     //console.log(`La temperatura actual es de °${datos}`) 
     divTemperatura.textContent = `La temperatura actual es de °${datos}`
