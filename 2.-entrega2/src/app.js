@@ -6,6 +6,8 @@ import { Server } from 'socket.io'
 import productRouter from "./routes/products.router.js"
 import cartRouter from "./routes/cart.router.js"
 import viewsRouter from './routes/views.router.js'
+import ProductsManager from './dao/ProductsManager.js'
+
 /* import { join } from "path"
 import path from 'path';
 const currentDir = path.dirname(__filename); */
@@ -42,15 +44,66 @@ app.use(
 app.use("/api/carts", cartRouter)
 
 
-
 app.use('/', viewsRouter)
 
 const serverHTTP = app.listen(8080, () => console.log("Listening on Port 8080"))
 
 serverSocket = new Server(serverHTTP)
 
-serverSocket.on("connection", socket => {
+serverSocket.on("connection", async socket => {
     console.log(`se conectó un cliente con id ${socket.id}`)
+
+    let products = await ProductsManager.getProducts()
+    socket.emit("previousProducts", products)
+
+    socket.on("nuevoProducto", async data => {
+        console.log(data)
+        let { title, description, code, price, status, stock, category, thumbnails } = data
+        console.log(title)
+
+        let newProductBody = data
+        console.log(newProductBody)
+
+        console.log("status", Boolean(status))
+
+        //Por defecto status en true
+        if (typeof newProductBody.status === "undefined") {
+            console.log("no viene status, se crea por defecto en true")
+            newProductBody.status = true
+            console.log(newProductBody)
+        }
+
+
+        if (isNaN(Number(price)) || isNaN(Number(stock))) {
+            console.log('Argumentos en formato númerico invalido')
+        }
+
+        if (typeof title !== "string" || typeof description !== "string" || typeof code !== "string" || typeof category !== "string") {
+            console.log('Argumentos en formato texto invalido')
+        }
+
+        //compruebo si los parámetros no están vacíos
+        if (!title.trim() || !description.trim() || !code.trim() || !price || !stock || !category.trim()) {
+            console.log("complete los datos")
+        }
+
+        let products = await ProductsManager.getProducts()
+
+        //evaluar si existe el producto
+        let exits = products.find(p => p.title.toLowerCase() === title.toLowerCase())
+        if (exits) {
+            console.log(`El producto ${title} ya existe`)
+        }
+
+        try {
+            let newProduct = await ProductsManager.addProduct(newProductBody)
+
+        } catch (error) {
+            console.log("error", error)
+
+        }
+    })
+
 
     //envia solo al que se acaba de conectar
     socket.emit("saludo", `Bienvenido. soy el server. Identificate...`)
@@ -65,4 +118,5 @@ serverSocket.on("connection", socket => {
 })
 
 
-/* app.listen(8080, () => console.log("Servidor arriba en el puerto 8080")) */ 
+/* app.listen(8080, () => console.log("Servidor arriba en el puerto 8080")) */
+

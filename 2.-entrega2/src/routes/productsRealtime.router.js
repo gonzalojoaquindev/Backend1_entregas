@@ -1,15 +1,14 @@
 /* const { Router } = require("express") */
 import express, { json } from 'express'
 import ProductsManager from '../dao/ProductsManager.js'
-
 import __dirname from '../utils.js'
-
-
 
 const router = express.Router()
 
 ProductsManager.path = "./src/data/products.json"
 console.log(ProductsManager.path)
+
+
 
 router.get('/', async (req, res) => {
     let products
@@ -96,8 +95,6 @@ router.get('/realtimeproducts', async (req, res) => {
     }
     let results = products.slice(0, limit)
 
-    req.socket.emit("previousProducts", products)
-
     res.render('realTimeProducts', {
         products
     }
@@ -105,35 +102,8 @@ router.get('/realtimeproducts', async (req, res) => {
 
 })
 
-router.get("/:id", async (req, res) => {
-    let products
-    try {
-        products = await ProductsManager.getProducts()
-    } catch (error) {
-        res.setHeader('Content-Type', 'application/json')
-        return res.status(500).json({
-            error: 'Error inesperado en el servidor, intente más tarde',
-            detalle: `${error.message}`
-        })
-
-    }
-    let { id } = req.params
-    console.log(id)
-    id = Number(id)
-    if (isNaN(id)) {
-        return res.status(400).send("error: ingrese un id numerico")
-    }
-    let product = products.find(p => p.id == id)
-    if (!product) {
-        console.log("no existe el producto")
-        return res.status(404).send("error: no se ha encontrado el producto")
-    }
-
-    res.status(200).send(product)
-})
-
-router.post("/", async (req, res) => {
-    let { title, description, code, price, status, stock, category, thumbnails } = req.body;
+router.post("/realtimeproducts", async (req, res) => {
+    let { title, description, code, price, status, stock, category } = req.body;
     console.log(title)
 
     let newProductBody = req.body
@@ -153,16 +123,6 @@ router.post("/", async (req, res) => {
 
     console.log(Boolean(2))
 
-    //evaluar tipos de datos
-    /*  if (typeof title !== "string" || typeof description !== "string" || typeof code !== "string" || typeof Number(price) !== "number" || typeof newProductBody.status !== "boolean" || typeof Number(stock) !== "number" || typeof category !== "string" || typeof thumbnails !== "object") {
-         console.log('Argumentos en formato invalido')
-         res.setHeader('Content-Type', 'application/json')
-         return res.status(400).json({
-             error: 'Argumentos en formato invalido'
-         })
-     } */
-
-    //borre el true de staytus
 
     if (isNaN(Number(price)) || isNaN(Number(stock))) {
         console.log('Argumentos en formato númerico invalido')
@@ -200,113 +160,17 @@ router.post("/", async (req, res) => {
         })
     }
 
-
-
     try {
         let newProduct = await ProductsManager.addProduct(newProductBody)
-
         //emitir el evento nuevo via socket-----
-        req.socket.emit("newProduct", newProduct)
-        res.render('index', {
+        req.socket.emit("nuevo", newProduct)
+        res.render('realTimeProducts', {
             newProduct
-        }
-        )
+        })
 
 
         /* res.setHeader('Content-Type', 'application/json')
         return res.status(200).json({ newProduct }) */
-
-    } catch (error) {
-        console.log("error", error)
-        res.setHeader('Content-Type', 'application/json')
-        return res.status(500).json({
-            error: 'Error inesperado en el servidor, intente más tarde',
-            detalle: `${error.message}`
-        })
-
-    }
-
-})
-
-router.post("/realtimeproducts", async (req, res) => {
-    let { title, description, code, price, status, stock, category, thumbnails } = req.body;
-    console.log(title)
-
-    let newProductBody = req.body
-    console.log(newProductBody)
-
-    console.log("status", Boolean(status))
-
-    //Por defecto status en true
-    if (typeof newProductBody.status === "undefined") {
-        console.log("no viene status, se crea por defecto en true")
-        newProductBody.status = true
-        console.log(newProductBody)
-    }
-    /*    id = Number(id) */
-    /*  console.log("transformado", Number(price))
-     console.log("solo", price) */
-
-    console.log(Boolean(2))
-
-    //evaluar tipos de datos
-    /*  if (typeof title !== "string" || typeof description !== "string" || typeof code !== "string" || typeof Number(price) !== "number" || typeof newProductBody.status !== "boolean" || typeof Number(stock) !== "number" || typeof category !== "string" || typeof thumbnails !== "object") {
-         console.log('Argumentos en formato invalido')
-         res.setHeader('Content-Type', 'application/json')
-         return res.status(400).json({
-             error: 'Argumentos en formato invalido'
-         })
-     } */
-
-    //borre el true de staytus
-
-    if (isNaN(Number(price)) || isNaN(Number(stock))) {
-        console.log('Argumentos en formato númerico invalido')
-        res.setHeader('Content-Type', 'application/json')
-        return res.status(400).json({
-            error: 'Argumentos en formato númerico invalido'
-        })
-    }
-
-    if (typeof title !== "string" || typeof description !== "string" || typeof code !== "string" || typeof category !== "string") {
-        console.log('Argumentos en formato texto invalido')
-        res.setHeader('Content-Type', 'application/json')
-        return res.status(400).json({
-            error: 'Argumentos en formato invalido'
-        })
-    }
-
-    //compruebo si los parámetros no están vacíos
-    if (!title.trim() || !description.trim() || !code.trim() || !price || !stock || !category.trim()) {
-        console.log("complete los datos")
-        return res.status(400).json({
-            error: 'Complete los datos necesarios',
-        })
-    }
-
-    let products = await ProductsManager.getProducts()
-
-    //evaluar si existe el producto
-    let exits = products.find(p => p.title.toLowerCase() === title.toLowerCase())
-    if (exits) {
-        console.log(`El producto ${title} ya existe`)
-        res.setHeader('Content-Type', 'application/json')
-        return res.status(400).json({
-            error: 'El producto ya existe',
-        })
-    }
-
-
-
-    try {
-        let newProduct = await ProductsManager.addProduct(newProductBody)
-
-        //emitir el evento nuevo via socket-----
-        req.socket.emit("nuevo", newProduct)
-
-
-        res.setHeader('Content-Type', 'application/json')
-        return res.status(200).json({ newProduct })
 
     } catch (error) {
         console.log("error", error)

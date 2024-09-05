@@ -1,10 +1,41 @@
 <div>
     <h1>Productos real time</h1>
-    <input type="text" id="mensaje">
+    {{!-- <input type="text" id="title" placeholder="Titulo">
+    <input type="text" id="Description" placeholder="Escribe tu apellido"> --}}
+    <input type="text" id="title" label="Titulo" placeholder="titulo">
+    <input type="text" id="description" label="Descripción" placeholder="Descripción">
+    <input type="text" id="code" label="Código" placeholder="Código">
+    <input type="number" id="price" label="Precio" placeholder="Precio">
+    <input type="text" id="status" label="Estado" placeholder="Estado">
+    <input type="number" id="stock" label="Stock" placeholder="Stock">
+    <input type="text" id="category" label="Categoria" placeholder="Categoria">
+    {{!-- <input type="submit" value="Enviar"> --}}
+    <button onclick="enviarMensaje()">Enviar</button>
+
+    {{!-- <form action="/api/realtimeproducts" method="post">
+        <input type="text" id="title" label="Titulo" placeholder="titulo">
+        <input type="text" name="description" label="Descripción" placeholder="Descripción">
+        <input type="text" name="code" label="Código" placeholder="Código">
+        <input type="number" name="price" label="Precio" placeholder="Precio">
+        <input type="text" name="status" label="Estado" placeholder="Estado">
+        <input type="number" name="stock" label="Stock" placeholder="Stock">
+        <input type="text" name="category" label="Categoria" placeholder="Categoria">
+        <input type="submit" value="Enviar">
+    </form>
+    --}}
+    {{#each products}}
+    <div>
+        <ul>
+            <li>{{this.title}} - {{this.description}} - ${{this.price}}</li>
+        </ul>
+    </div>
+    {{/each}}
+
+    <input type="text" id="title">
     <a href="/api/products">Home</a>
     <div id="productos"></div>
 
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="/js/index.js"></script>
+<script src="/js/realTime.js"></script>
