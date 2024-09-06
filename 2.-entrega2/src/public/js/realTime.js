@@ -42,14 +42,67 @@ socket.on("previousProducts", productos => {
         let s = document.createElement("strong")
         let sp = document.createElement("span")
         let i = document.createElement("i")
+        let d = document.createElement("button")
 
         s.textContent = producto.title
-        sp.textContent = " hola"
+        sp.textContent = " - "
         i.textContent = producto.description
-        p.append(s, sp, i)
+        d.textContent = "Eliminar"
+        p.append(s, sp, i, d)
+        d.onclick = function () {
+            console.log("me eliminaste", producto.id)
+            socket.emit("deleteProduct", producto.id)
+            p.remove()
+        }
         divProducts.append(p)
         divProducts.scrollTop = divProducts.scrollHeight
     })
+})
+
+socket.on("newProduct", product => {
+    console.log("Se creo un nuevo producto")
+    let p = document.createElement("p")
+    p.classList.add("producto")
+    let s = document.createElement("strong")
+    let sp = document.createElement("span")
+    let i = document.createElement("i")
+    let d = document.createElement("button")
+
+    s.textContent = product.title
+    sp.textContent = " hola"
+    i.textContent = product.description
+    d.textContent = "Eliminar"
+    p.append(s, sp, i, d)
+    d.onclick = function () {
+        console.log("me eliminaste", product.id)
+        socket.emit("deleteProduct", product.id)
+        p.remove()
+    }
+    divProducts.append(p)
+    divProducts.scrollTop = divProducts.scrollHeight
+
+})
+
+socket.on("deletedProduct", id => {
+    console.log("Producto eliminado", id)
+
+})
+
+
+socket.on("nuevoMensaje", (nombre, mensaje) => {
+    let p = document.createElement("p")
+    p.classList.add("mensaje")
+    let s = document.createElement("strong")
+    let sp = document.createElement("span")
+    let i = document.createElement("i")
+
+    s.textContent = nombre
+    sp.textContent = " dice "
+    i.textContent = mensaje
+    p.append(s, sp, i)
+    divMensajes.append(p)
+    divMensajes.scrollTop = divMensajes.scrollHeight
+
 })
 
 /* const divTemperatura = document.getElementById('temperatura')

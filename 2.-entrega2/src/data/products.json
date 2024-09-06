@@ -1,19 +1,5 @@
 [
      {
-          "id": 3,
-          "title": "escritorio4",
-          "description": "prueba2",
-          "code": "148",
-          "price": 60000,
-          "status": true,
-          "stock": 3,
-          "category": "office",
-          "thumbnails": [
-               "img1",
-               "img3"
-          ]
-     },
-     {
           "id": 4,
           "title": "escritorio6",
           "description": "prueba2",
@@ -25,20 +11,6 @@
                "img1",
                "img3"
           ]
-     },
-     {
-          "id": 5,
-          "title": "editado desde insomnia",
-          "description": "prueba2",
-          "code": "148",
-          "price": 60000,
-          "stock": 3,
-          "category": "office",
-          "thumbnails": [
-               "img1",
-               "img3"
-          ],
-          "status": true
      },
      {
           "id": 6,
@@ -55,131 +27,53 @@
      },
      {
           "id": 7,
-          "title": "cvds",
-          "description": "sd",
-          "code": "43",
-          "price": "434",
-          "status": "fr4",
-          "stock": "44",
-          "category": "gf"
+          "title": "escritorio9",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ],
+          "status": true
      },
      {
           "id": 8,
-          "title": "cvdsr",
-          "description": "sd",
-          "code": "43",
-          "price": "434",
-          "status": "fr4",
-          "stock": "44",
-          "category": "gf"
+          "title": "escritorio10",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ],
+          "status": true
      },
      {
           "id": 9,
-          "title": "feffdf",
-          "description": "fdf",
-          "code": "",
-          "price": "",
-          "status": "",
-          "stock": "",
-          "category": ""
-     },
-     {
-          "id": 10,
-          "title": "dsdd",
-          "description": "dsd",
-          "code": "",
-          "price": "",
-          "status": "",
-          "stock": "",
-          "category": ""
+          "title": "escritorio11",
+          "description": "prueba2",
+          "code": "148",
+          "price": 60000,
+          "status": true,
+          "stock": 3,
+          "category": "office",
+          "thumbnails": [
+               "img1",
+               "img3"
+          ]
      },
      {
           "id": 11,
-          "title": "sad",
-          "description": "dsad",
-          "code": "dsad",
+          "title": "fd",
+          "description": "sd",
+          "code": "sd",
           "price": "3",
-          "status": "dzdas",
-          "stock": "3",
-          "category": "fdsf"
-     },
-     {
-          "id": 12,
-          "title": "sas",
-          "description": "dsfw",
-          "code": "cdsc",
-          "price": "13",
-          "status": "true",
-          "stock": "33",
-          "category": "cds"
-     },
-     {
-          "id": 13,
-          "title": "dsd",
-          "description": "dsdsd",
-          "code": "323",
-          "price": "232",
-          "status": "232",
-          "stock": "2323",
-          "category": "3232"
-     },
-     {
-          "id": 14,
-          "title": "rer",
-          "description": "ere",
-          "code": "ere",
-          "price": "",
-          "status": "",
-          "stock": "",
-          "category": ""
-     },
-     {
-          "id": 15,
-          "title": "re",
-          "description": "ere",
-          "code": "ere",
-          "price": "",
-          "status": "",
-          "stock": "",
-          "category": ""
-     },
-     {
-          "id": 16,
-          "title": "gre",
-          "description": "ere",
-          "code": "ere",
-          "price": "",
-          "status": "",
-          "stock": "",
-          "category": ""
-     },
-     {
-          "id": 17,
-          "title": "nuevo",
-          "description": "descrip",
-          "code": "codigo",
-          "price": "123",
-          "status": "true",
-          "stock": "1",
-          "category": "gtd"
-     },
-     {
-          "id": 18,
-          "title": "nuevo2",
-          "description": "df",
-          "code": "df",
-          "price": "3",
-          "status": "fdf",
-          "stock": "2",
-          "category": "fd"
-     },
-     {
-          "id": 19,
-          "title": "fdf",
-          "description": "dfd",
-          "code": "df",
-          "price": "44",
-          "status": "fds",
+          "status": "fe",
           "stock": "3",
           "category": "fd"
      }

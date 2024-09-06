@@ -98,11 +98,28 @@ serverSocket.on("connection", async socket => {
         try {
             let newProduct = await ProductsManager.addProduct(newProductBody)
 
+
         } catch (error) {
             console.log("error", error)
 
         }
+        socket.emit("newProduct", newProductBody)
+
     })
+
+    socket.on("deleteProduct", async id => {
+        console.log(`Eliminando el producto con id ${id}`)
+        id = Number(id)
+
+        try {
+            let result = await ProductsManager.deleteProduct(id)
+
+        } catch (error) {
+            console.log(error)
+        }
+        socket.emit("deletedProduct", id)
+    })
+
 
 
     //envia solo al que se acaba de conectar
@@ -116,6 +133,8 @@ serverSocket.on("connection", async socket => {
 
     //emitir a todos
 })
+
+
 
 
 /* app.listen(8080, () => console.log("Servidor arriba en el puerto 8080")) */
