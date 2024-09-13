@@ -6,6 +6,8 @@ import { Server } from 'socket.io'
 /* import productRouter from "./routes/products.router.js" */
 import productRouter from './routes/productsRealtimeMongo.router.js';
 
+import { router as views } from './routes/viewsRouter.js';
+
 
 import cartRouter from "./routes/cart.router.js"
 /* import viewsRouter from './routes/views.router.js' */
@@ -35,6 +37,7 @@ app.set('views', __dirname + '/views')
 //indicamos que deseamos que public se vuelva estático. en la ruta raíz se mostrará el index.html
 app.use(express.static(__dirname + '/public'))
 
+app.use("/", views)
 
 //configuración de rutas------------------------
 app.use(

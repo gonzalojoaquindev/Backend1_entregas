@@ -7,6 +7,11 @@ class ProductsMongoManager {
         return await productsModel.find().lean()
     }//fin read
 
+    static async getProductsPaginate(page = 1) {
+        return await productsModel.paginate({}, { lean: true, page, limit: 5 })
+
+    }
+
     static async addProduct(product = {}) {
         let newProduct = await productsModel.create(product)
         return newProduct.toJSON()

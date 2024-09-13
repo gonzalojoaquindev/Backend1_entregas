@@ -16,7 +16,15 @@ console.log(ProductsManager.path)
 
 router.get('/', async (req, res) => {
     try {
-        let products = await ProductsManager.getProducts()
+        let { page } = req.query
+        /* console.log(isNaN(Number(page))) */
+        if (!page || isNaN(Number(page))) {
+            console.log("no viene el parametro page, se establecerá en 1")
+            page = 1
+        }
+        console.log(`obteniendo pagina ${page}`)
+        /* let products = await ProductsManager.getProducts() */
+        let products = await ProductsManager.getProductsPaginate(page)
         console.log("obtienendo productos desde DB")
         res.setHeader('Content-Type', 'application/json');
         return res.status(200).json({ products });
@@ -34,6 +42,9 @@ router.get('/', async (req, res) => {
 
 })
 
+
+
+
 router.get('/:id', async (req, res) => {
 
     let { id } = req.params
@@ -43,13 +54,13 @@ router.get('/:id', async (req, res) => {
     }
 
     try {
-        let usuario = await UsuariosManager.getUserBy({ _id: id })
-        if (!usuario) {
+        let product = await ProductsManager.getUserBy({ _id: id })
+        if (!product) {
             res.setHeader('Content-Type', 'application/json');
-            return res.status(400).json({ error: `No existen usuarios con id ${id}` })
+            return res.status(400).json({ error: `No existe producto con id ${id}` })
         }
         res.setHeader('Content-Type', 'application/json');
-        return res.status(200).json({ usuario });
+        return res.status(200).json({ product });
     } catch (error) {
         console.log(error);
         res.setHeader('Content-Type', 'application/json');

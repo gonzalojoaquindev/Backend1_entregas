@@ -38,7 +38,9 @@ Para el carrito, el cual tendrá su router en /api/carts/, configurar dos rutas:
 
 ### Consigna
 
-* [ ] Configurar nuestro proyecto para que trabaje con Handlebars y websocket.
+* [ ] 
+
+* [X] ~~*Configurar nuestro proyecto para que trabaje con Handlebars y websocket.*~~ [2024-09-11]
 
 ### Apecto a considerar
 * [ ] Configurar el servidor para integrar el motor de plantillas Handlebars e instalar un servidor de socket.io al mismo.
