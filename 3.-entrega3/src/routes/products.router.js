@@ -60,7 +60,6 @@ router.get('/realtimeproducts', async (req, res) => {
         products
     }
     )
-
 })
 
 router.get("/:id", async (req, res) => {

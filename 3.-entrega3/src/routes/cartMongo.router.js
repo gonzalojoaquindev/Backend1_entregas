@@ -1,6 +1,8 @@
 import { Router } from 'express'
 /* import CartsManager from '../dao/CartsManager.js' */
 import CartsManager from '../dao/CartsMongoManager.js'
+
+import ProductsManager from '../dao/ProductsMongoManager.js'
 import { isValidObjectId } from 'mongoose';
 
 const router = Router()
@@ -10,7 +12,8 @@ CartsManager.path = "./data/carts.json"
 console.log(CartsManager.path)
 
 router.get("/:cid", async (req, res) => {
-    console.log("ejecutando obtener")
+
+    console.log("ejecutando obtener carritos")
     let carts
     try {
         carts = await CartsManager.getCarts()
@@ -23,7 +26,7 @@ router.get("/:cid", async (req, res) => {
         })
 
     }
-    console.log("carts", carts)
+    /* console.log("carts", carts) */
 
     let { cid } = req.params
     if (!isValidObjectId(cid)) {
@@ -31,11 +34,12 @@ router.get("/:cid", async (req, res) => {
         return res.status(400).json({ error: `id formato inválido` })
     }
     try {
-        let cart = await UsuariosManager.getUserBy({ _id: id })
+        let cart = await CartsManager.getCartsById({ _id: cid })
         if (!cart) {
             res.setHeader('Content-Type', 'application/json');
             return res.status(400).json({ error: `no existe el carrito de compra 🛒 con id ${id}` })
         }
+        /*  console.log(`carrito obtenido: ${JSON.stringify(cart, null, 5)}`) */
         res.setHeader('Content-Type', 'application/json');
         return res.status(200).json({ cart });
     } catch (error) {
@@ -50,21 +54,133 @@ router.get("/:cid", async (req, res) => {
     }
 
 
-
-    /* let cart = carts.find(p => p.id == id)
-
-    if (!cart) {
-        console.log("no existe el carrito de compra 🛒")
-        return res.status(404).send("No existe el carrito de compra 🛒")
-    }
-    res.setHeader('Content-Type', 'application/json')
-    return res.status(200).json({ cart }) */
 })
 
+
+/* 
+    - PUT api / carts /:cid deberá actualizar todos los productos del carrito con un arreglo de productos.
+    - PUT api / carts /: cid / products /:pid deberá poder actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body  */
+
+//DELETE api / carts /:cid deberá eliminar todos los productos del carrito
+router.delete("/:cid/", async (req, res) => {
+    let { cid } = req.params;
+
+    if (!isValidObjectId(cid)) {
+        res.setHeader('Content-Type', 'application/json')
+        return res.status(400).json({
+            error: 'El id tiene formato invalido'
+        })
+    }
+    console.log(`Eliminando todos los productos del carrito ${cid}`);
+
+    try {
+        //Obtengo el carro
+        let cart = await CartsManager.getCartsById(cid)
+        //valido si existe el carro
+        if (!cart) {
+            res.setHeader('Content-Type', 'application/json')
+            return res.status(400).json({ error: `No existe carro con id ${cid}` })
+        }
+        /* console.log(JSON.stringify(cart.products, null, 2)); */
+
+        cart.products = []
+
+        let result = await CartsManager.updateCart(cid, cart)
+
+        if (result.modifiedCount > 0) {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(200).json({ message: "Cart actualizado" });
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({ error: `Fallo en la actualizacion` })
+        }
+    } catch (error) {
+        console.log("error", error)
+        res.setHeader('Content-Type', 'application/json')
+        return res.status(500).json({
+            error: 'Error inesperado en el servidor, intente más tarde',
+            detalle: `${error.message}`
+        })
+
+    }
+})//eliminar todos los productos del carrito
+
+//DELETE api / carts /: cid / products /:pid deberá eliminar del carrito el producto seleccionado.
+router.delete("/:cid/products/:pid", async (req, res) => {
+    let { cid, pid } = req.params;
+
+    if (!isValidObjectId(pid) || !isValidObjectId(cid)) {
+        res.setHeader('Content-Type', 'application/json')
+        return res.status(400).json({
+            error: 'Algún id tiene formato invalido'
+        })
+    }
+    console.log(`Eliminando el producto ${pid} del carrito ${cid}`);
+
+    try {
+        //Obtengo el carro
+        let cart = await CartsManager.getCartsById(cid)
+        //valido si existe el carro
+        if (!cart) {
+            res.setHeader('Content-Type', 'application/json')
+            return res.status(400).json({ error: `No existe carro con id ${cid}` })
+        }
+        //Obtengo el producto
+        let product = await ProductsManager.getProductsById({ _id: pid })
+        //valido si existe el producto
+        if (!product) {
+            res.setHeader('Content-Type', 'application/json')
+            return res.status(400).json({ error: `No existe el producto con id ${pid}` })
+        }
+        /* console.log(JSON.stringify(cart.products, null, 2)); */
+
+        let indexProduct = cart.products.findIndex(p => p.product._id == pid)
+        console.log(`indice del producto ${indexProduct}`)
+        if (indexProduct === -1) {
+            console.log(`El producto no existe dentro del carro`)
+            res.setHeader('Content-Type', 'application/json')
+            return res.status(400).json({ error: `No existe el producto con id ${pid} en el carrito ${cid}` })
+        } else {
+            //evalúo si ya existe al menos 1 producto para descontarlo
+            if (cart.products[indexProduct].quantity > 1) {
+                cart.products[indexProduct].quantity--
+            } else {
+                console.log(`Se eliminó el último porducto con id ${pid}`);
+                cart.products.splice(indexProduct, 1)
+            }
+        }
+
+        let result = await CartsManager.updateCart(cid, cart)
+
+        if (result.modifiedCount > 0) {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(200).json({ message: "Cart actualizado" });
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({ error: `Fallo en la actualizacion` })
+        }
+        /* res.setHeader('Content-Type', 'application/json');
+        return res.status(200).json({ message: "Cart actualizado" }); */
+
+
+    } catch (error) {
+        console.log("error", error)
+        res.setHeader('Content-Type', 'application/json')
+        return res.status(500).json({
+            error: 'Error inesperado en el servidor, intente más tarde',
+            detalle: `${error.message}`
+        })
+
+    }
+})//eliminar del carrito el producto seleccionado
+
+//Crear carro vacío
 router.post("/", async (req, res) => {
-    console.log("Creando carrito 🛒")
+    console.log("Creando carrito vacío 🛒")
     try {
         let newCart = await CartsManager.addCart()
+        console.log(`Carrito creado con id ${newCart._id}`);
+
         res.setHeader('Content-Type', 'application/json')
         return res.status(200).json({ newCart })
 
@@ -77,68 +193,63 @@ router.post("/", async (req, res) => {
         })
 
     }
-})
+})//Crear carro vacío
 
+//Agregar producto al carro
 router.post("/:cid/product/:pid", async (req, res) => {
     let { cid, pid } = req.params;
 
-    cid = Number(cid)
-    pid = Number(pid)
-    console.log("id carrito", cid)
-    console.log("id producto", pid)
-    //evaluar tipos de datos
-    if (typeof cid !== "number" || typeof pid !== "number") {
-        console.log('Argumentos en formato invalido')
+    if (!isValidObjectId(pid) || !isValidObjectId(cid)) {
         res.setHeader('Content-Type', 'application/json')
         return res.status(400).json({
-            error: 'Argumentos en formato invalido'
+            error: 'Algún id tiene formato invalido'
         })
     }
 
-    //validar que sea un id numerico
-    if (isNaN(cid) || isNaN(pid)) {
-        return res.status(400).send("error: ingrese un id numerico")
-    }
-
-    let carts = await CartsManager.getCarts()
-    console.log(carts)
-    //Evaluar si existe el carro
-    let cart = carts.find(c => c.id == cid)
-    console.log("carrito", cart)
-    if (!cart) {
-        res.setHeader('Content-Type', 'application/json')
-        return res.status(400).json({ error: 'El carro no existe' })
-    }
-    //Evaluar si el carrito tiene productos
-    if (cart.products.length > 0) {
-        console.log("el carrito tiene productos")
-        //Evaluar si ya existe el producto en dentro del carro
-        let product = cart.products.find(p => p.product == pid)
-        if (product) {
-            product.quantity = product.quantity + 1
-            console.log(`ya existe producto, le sumé 1 a la cantidad quedando en: ${product.quantity}`)
-        } else {
-            let newProduct = {
-                product: pid,
-                quantity: 1
-            }
-            cart.products.push(newProduct)
-            console.log(`no existía el producto en el carro, se agregó: producto ${newProduct.product}`)
-        }
-
-    } else {
-        cart.products.push({
-            product: pid,
-            quantity: 1
-        })
-        console.log(`El carro estaba vacío, se agregó: ${cart.products.product}`)
-    }
+    console.log("id carrito", cid)
+    console.log("id producto", pid)
 
     try {
-        let product = await CartsManager.addProductToCart(cid, pid, cart)
-        console.log("agregando producto al carro")
-        res.setHeader('Content-Type', 'application/json')
-        return res.status(200).json({ product })
+        //Obtengo el carro con su id
+        let cart = await CartsManager.getCartsById(cid)
+        //Valido si existe el carro
+        if (!cart) {
+            res.setHeader('Content-Type', 'application/json')
+            return res.status(400).json({ error: `No existe carro con id ${cid}` })
+        }
+        //Obtengo el producto con su id
+        let product = await ProductsManager.getProductsById({ _id: pid })
+        //Valido si existe
+        if (!product) {
+            res.setHeader('Content-Type', 'application/json')
+            return res.status(400).json({ error: `No existe el producto con id ${pid}` })
+        }
+        console.log(`Agreando producto ${pid} al carro ${cid}`)
+        /* console.log(JSON.stringify(cart, null, 5)); */
+
+        let indexProduct = cart.products.findIndex(p => p.product._id == pid)
+        if (indexProduct === -1) {
+            console.log(`El producto no existe dentro del carro`)
+            cart.products.push({
+                product: pid,
+                quantity: 1
+            })
+            console.log("Se agrega 1 producto al carro")
+        } else {
+            console.log("Ya existe el mismo producto en el carro, Se suma 1 producto más")
+            cart.products[indexProduct].quantity++
+        }
+
+        let result = await CartsManager.updateCart(cid, cart)
+
+        if (result.modifiedCount > 0) {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(200).json({ message: "Cart actualizado" });
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({ error: `Fallo en la actualizacion` })
+        }
+
 
     } catch (error) {
         console.log("error", error)
@@ -147,13 +258,8 @@ router.post("/:cid/product/:pid", async (req, res) => {
             error: 'Error inesperado en el servidor, intente más tarde',
             detalle: `${error.message}`
         })
-
     }
+})//Agregar producto al carro
 
-})
-
-
-
-/* module.exports = { router } */
 
 export default router

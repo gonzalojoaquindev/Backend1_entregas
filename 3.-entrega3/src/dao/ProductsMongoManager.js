@@ -7,9 +7,16 @@ class ProductsMongoManager {
         return await productsModel.find().lean()
     }//fin read
 
-    static async getProductsPaginate(page = 1) {
-        return await productsModel.paginate({}, { lean: true, page, limit: 5 })
+    static async getProductsPaginate(page = 1, limit = 10, sort = { code: 1 }) {
+        return await productsModel.paginate({}, { lean: true, page, limit, sort })
+    }
 
+    static async getProductsPaginateWeb(page = 1, limit = 10, sort = { code: 1 }) {
+        return await productsModel.paginate({}, { lean: true, page, limit, sort })
+    }
+
+    static async getProductsById(filtro = {}) {
+        return await productsModel.findOne(filtro)
     }
 
     static async addProduct(product = {}) {

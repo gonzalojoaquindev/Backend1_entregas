@@ -12,19 +12,47 @@ const router = express.Router()
 ProductsManager.path = "./src/data/products.json"
 console.log(ProductsManager.path)
 
-
-
 router.get('/', async (req, res) => {
-    try {
-        let { page } = req.query
-        /* console.log(isNaN(Number(page))) */
-        if (!page || isNaN(Number(page))) {
-            console.log("no viene el parametro page, se establecerá en 1")
-            page = 1
+    let { page, limit, sort } = req.query
+    console.log('Ejecutando get desde productsRealtimeMongo');
+
+    console.log(`limit ${limit}, page ${page} sort ${sort}`)
+    /* console.log(isNaN(Number(page))) */
+    if (!page || isNaN(Number(page))) {
+        console.log("no viene el parametro page, se establecerá en 1")
+        page = 1
+    }
+
+    if (!limit || isNaN(Number(limit))) {
+        limit = 10
+        console.log("no viene el parametro limit, se establecerá en 1")
+    }
+
+
+
+
+    if (!sort || sort != "asc" && sort != "desc") {
+        console.log("sort", sort)
+        sort = { code: 1 }
+    } else {
+        if (sort == "asc") {
+            console.log('Ordenado precios de forma ascendente');
+            sort = { price: 1 }
         }
-        console.log(`obteniendo pagina ${page}`)
-        /* let products = await ProductsManager.getProducts() */
-        let products = await ProductsManager.getProductsPaginate(page)
+
+        if (sort == "desc") {
+            console.log('Ordenado precios de forma descendente');
+            sort = { price: -1 }
+        }
+    }
+
+    console.log(sort)
+
+    console.log(`obteniendo pagina ${page} con limite en ${limit}con sort ${{ code: 1 }}`)
+    /* let products = await ProductsManager.getProducts() */
+
+    try {
+        let products = await ProductsManager.getProductsPaginate(page, limit, sort)
         console.log("obtienendo productos desde DB")
         res.setHeader('Content-Type', 'application/json');
         return res.status(200).json({ products });

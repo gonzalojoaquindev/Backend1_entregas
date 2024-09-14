@@ -156,6 +156,7 @@ socket.on("newProduct", producto => {
     let content = document.createElement("div")
     let title = document.createElement("span")
     let description = document.createElement("p")
+    let category = document.createElement("span")
     let price = document.createElement("p")
     let action = document.createElement("div")
     let button = document.createElement("a")
@@ -165,17 +166,19 @@ socket.on("newProduct", producto => {
     card.classList.add('card', 'blue-grey', 'darken-1')
     content.classList.add('card-content', 'white-text')
     title.classList.add('card-title')
+    category.classList.add("new", "badge")
     action.classList.add('card-action')
 
 
     title.textContent = producto.title
     description.textContent = producto.description
+    category.textContent = producto.category
     price.textContent = `$ ${producto.price}`
     button.textContent = "Eliminar"
 
     container.append(card)
     card.append(content, action)
-    content.append(title, description, price)
+    content.append(title, description, price, category)
     action.append(button)
 
     divProducts.append(container)

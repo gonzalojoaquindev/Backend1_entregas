@@ -1,26 +1,6 @@
 import mongoose from "mongoose";
 import paginate from 'mongoose-paginate-v2'
 
-/* export const productsModel = mongoose.model(
-    "product",
-    new mongoose.Schema(
-        {
-            id: Number,
-            title: {
-                type: String, unique: true
-            },
-            description: String,
-            code: String,
-            price: Number,
-            status: Boolean,
-            stock: Number,
-            category: String,
-        },
-        {
-            timestamps: true
-        }
-    )
-) */
 
 const productSchema = new mongoose.Schema(
     {
@@ -42,17 +22,5 @@ const productSchema = new mongoose.Schema(
 productSchema.plugin(paginate)
 
 export const productsModel = mongoose.model(
-    "product", productSchema)
+    "products", productSchema)
 
-/* "id": 3,
-    "title": "escritorio4",
-        "description": "prueba2",
-            "code": "148",
-                "price": 60000,
-                    "status": true,
-                        "stock": 3,
-                            "category": "office",
-                                "thumbnails": [
-                                    "img1",
-                                    "img3"
-                                ] */
