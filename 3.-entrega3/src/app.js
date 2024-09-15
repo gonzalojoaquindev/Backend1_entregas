@@ -42,7 +42,7 @@ app.set('views', __dirname + '/views')
 //indicamos que deseamos que public se vuelva estático. en la ruta raíz se mostrará el index.html
 app.use(express.static(__dirname + '/public'))
 
-app.use("/products", views)
+app.use("/", views)
 
 //configuración de rutas------------------------
 app.use(

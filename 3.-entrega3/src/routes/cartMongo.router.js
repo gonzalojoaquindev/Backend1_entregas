@@ -29,15 +29,18 @@ router.get("/:cid", async (req, res) => {
     /* console.log("carts", carts) */
 
     let { cid } = req.params
+    //validar id
     if (!isValidObjectId(cid)) {
         res.setHeader('Content-Type', 'application/json');
         return res.status(400).json({ error: `id formato inválido` })
     }
+
     try {
         let cart = await CartsManager.getCartsById({ _id: cid })
+        //validar si el carro existe
         if (!cart) {
             res.setHeader('Content-Type', 'application/json');
-            return res.status(400).json({ error: `no existe el carrito de compra 🛒 con id ${id}` })
+            return res.status(400).json({ error: `No existe el carrito de compra 🛒 con id ${cid}` })
         }
         /*  console.log(`carrito obtenido: ${JSON.stringify(cart, null, 5)}`) */
         res.setHeader('Content-Type', 'application/json');

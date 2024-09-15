@@ -5,6 +5,9 @@ gonzaloact
 
 mongodb+srv://gonzaloact:20dejulio@cluster0.7b3o3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
+
+
+
 * [X] ~~*Crear archivo para importar datos*~~ [2024-09-15]
 * [X] ~~*Cambiar base de datos a atlas*~~ [2024-09-15]
 * [X] ~~*Subir tarea de coderhouse*~~ [2024-09-15]
@@ -30,21 +33,29 @@ Deberá poder recibir por query params un limit (opcional), una page (opcional),
         prevLink: Link directo a la página previa (null si hasPrevPage=false)
         nextLink: Link directo a la página siguiente (null si hasNextPage=false)
     }
-* [ ] Se deberá poder buscar productos por categoría o por disponibilidad, y se deberá poder realizar un ordenamiento de estos      productos de manera ascendente o descendente por precio.
+* [ ] Se deberá poder buscar productos por categoría o por disponibilidad, 
+* [X] ~~*y se deberá poder realizar un ordenamiento de estos      productos de manera ascendente o descendente por precio.*~~ [2024-09-15]
 
 Además, agregar al router de carts los siguientes endpoints:
 - [X] ~~*DELETE api/carts/:cid/products/:pid deberá eliminar del carrito el producto seleccionado.*~~ [2024-09-15]
 - [ ] PUT api/carts/:cid deberá actualizar todos los productos del carrito con un arreglo de productos.
-- [ ] PUT api/carts/:cid/products/:pid deberá poder actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body
-- [ ] DELETE api/carts/:cid deberá eliminar todos los productos del carrito 
-- [ ] Esta vez, para el modelo de Carts, en su propiedad products, el id de cada producto generado dentro del array tiene que hacer referencia al modelo de Products. Modificar la ruta /:cid para que al traer todos los productos, los traiga completos mediante un “populate”. De esta manera almacenamos sólo el Id, pero al solicitarlo podemos desglosar los productos asociados.
+- [X] ~~*PUT api/carts/:cid/products/:pid deberá poder actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body*~~ [2024-09-15]
+- [X] ~~*DELETE api/carts/:cid deberá eliminar todos los productos del carrito*~~ [2024-09-15] 
 
-## Vista Products
+## Carts
+- [X] ~~*Esta vez, para el modelo de Carts, en su propiedad products, el id de cada producto generado dentro del array tiene que hacer referencia al modelo de Products. Modificar la ruta /:cid para que al traer todos los productos, los traiga completos mediante un “populate”. De esta manera almacenamos sólo el Id, pero al solicitarlo podemos desglosar los productos asociados.*~~ [2024-09-15]
+
+# Vista 
+
+## Products
+
 * [X] ~~*Modificar la vista index.handlebars en el router de views ‘/products’, creada en la pre-entrega anterior, para visualizar todos los productos con su respectiva paginación.*~~ [2024-09-15] 
 * [ ] Además, cada producto mostrado puede resolverse de dos formas:
 Llevar a una nueva vista con el producto seleccionado con su descripción completa, detalles de precio, categoría, etc. Además de un botón para agregar al carrito.
 Sugerencia de la ruta: “/products/:pid”.
 Contar con el botón de “agregar al carrito” directamente, sin necesidad de abrir una página adicional con los detalles del producto.
+
+## Carts
 
 * [ ] Además, agregar una vista en ‘/carts/:cid (cartId) para visualizar un carrito específico, donde se deberán listar SOLO los productos que pertenezcan a dicho carrito. 
 

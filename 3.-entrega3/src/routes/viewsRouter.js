@@ -1,12 +1,16 @@
 import { Router } from "express"
 export const router = Router()
 
-router.get('/', (req, res) => {
+router.get('/products', (req, res) => {
     res.setHeader('Content-Type', 'text/html')
     res.status(200).render("productsPaginate")
 })
 
-router.get('/cart')
+router.get('/carts', (req, res) => {
+    console.log("renderizando carritos")
+    res.setHeader('Content-Type', 'text/html')
+    res.status(200).render("carts")
+})
 
 
 /* DELETE api / carts /: cid / products /:pid deberá eliminar del carrito el producto seleccionado.
