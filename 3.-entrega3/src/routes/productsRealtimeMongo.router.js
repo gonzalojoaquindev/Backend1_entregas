@@ -12,6 +12,7 @@ const router = express.Router()
 ProductsManager.path = "./src/data/products.json"
 console.log(ProductsManager.path)
 
+//Leer todos los productos
 router.get('/', async (req, res) => {
     let { page, limit, sort } = req.query
     console.log('Ejecutando get desde productsRealtimeMongo');
@@ -27,9 +28,6 @@ router.get('/', async (req, res) => {
         limit = 10
         console.log("no viene el parametro limit, se establecerá en 1")
     }
-
-
-
 
     if (!sort || sort != "asc" && sort != "desc") {
         console.log("sort", sort)
@@ -72,7 +70,7 @@ router.get('/', async (req, res) => {
 
 
 
-
+//Leer un producto por su id
 router.get('/:id', async (req, res) => {
 
     let { id } = req.params
@@ -102,6 +100,7 @@ router.get('/:id', async (req, res) => {
 
 })
 
+//Leer productos realtime
 router.get('/realtimeproducts', async (req, res) => {
     let products
     try {
@@ -140,7 +139,7 @@ router.get('/realtimeproducts', async (req, res) => {
 
 })
 
-
+//Crear un producto
 router.post("/", async (req, res) => {
     let { title, description, code, price, status, stock, category } = req.body;
     console.log(title)

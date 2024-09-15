@@ -10,7 +10,7 @@ const router = Router()
 CartsManager.path = "./data/carts.json"
 
 console.log(CartsManager.path)
-
+//Obtener un carrito por su id
 router.get("/:cid", async (req, res) => {
 
     console.log("ejecutando obtener carritos")
@@ -54,12 +54,9 @@ router.get("/:cid", async (req, res) => {
     }
 
 
-})
+})//Obtener un carrito por su id
 
 
-/* 
-    - PUT api / carts /:cid deberá actualizar todos los productos del carrito con un arreglo de productos.
-    - PUT api / carts /: cid / products /:pid deberá poder actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body  */
 
 //DELETE api / carts /:cid deberá eliminar todos los productos del carrito
 router.delete("/:cid/", async (req, res) => {
@@ -260,6 +257,79 @@ router.post("/:cid/product/:pid", async (req, res) => {
         })
     }
 })//Agregar producto al carro
+
+
+//PUT api / carts /:cid deberá actualizar todos los productos del carrito con un arreglo de productos.
+
+
+//PUT api / carts /: cid / products /:pid deberá poder actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body
+
+router.put("/:cid/product/:pid", async (req, res) => {
+    let { cid, pid } = req.params;
+
+    let { quantity } = req.body
+
+    console.log(quantity)
+
+    if (!isValidObjectId(pid) || !isValidObjectId(cid)) {
+        res.setHeader('Content-Type', 'application/json')
+        return res.status(400).json({
+            error: 'Algún id tiene formato invalido'
+        })
+    }
+
+    console.log("id carrito", cid)
+    console.log("id producto", pid)
+
+    try {
+        //Obtengo el carro con su id
+        let cart = await CartsManager.getCartsById(cid)
+        //Valido si existe el carro
+        if (!cart) {
+            res.setHeader('Content-Type', 'application/json')
+            return res.status(400).json({ error: `No existe carro con id ${cid}` })
+        }
+        //Obtengo el producto con su id
+        let product = await ProductsManager.getProductsById({ _id: pid })
+        //Valido si existe
+        if (!product) {
+            res.setHeader('Content-Type', 'application/json')
+            return res.status(400).json({ error: `No existe el producto con id ${pid}` })
+        }
+        console.log(`Actualizando cantidad de producto ${pid} en carro ${cid}`)
+        /* console.log(JSON.stringify(cart, null, 5)); */
+
+        let indexProduct = cart.products.findIndex(p => p.product._id == pid)
+        if (indexProduct === -1) {
+            console.log(`El producto no existe dentro del carro`)
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({ error: `El producto no existe dentro del carro` })
+
+        } else {
+            console.log("Actualizando cantidad de producto")
+            cart.products[indexProduct].quantity = quantity
+        }
+
+        let result = await CartsManager.updateCart(cid, cart)
+
+        if (result.modifiedCount > 0) {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(200).json({ message: "Cart actualizado" });
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(400).json({ error: `Fallo en la actualizacion` })
+        }
+
+    } catch (error) {
+        console.log("error", error)
+        res.setHeader('Content-Type', 'application/json')
+        return res.status(500).json({
+            error: 'Error inesperado en el servidor, intente más tarde',
+            detalle: `${error.message}`
+        })
+    }
+})//Actualizar cantidad de producto al carro
+
 
 
 export default router

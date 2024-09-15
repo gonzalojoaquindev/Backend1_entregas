@@ -15,6 +15,7 @@ import { router as views } from './routes/viewsRouter.js';
 /* import viewsRouter from './routes/views.router.js' */
 import ProductsManager from './dao/ProductsManager.js'
 import { connDB } from './connDB.js';
+import { config } from './config/config.js';
 
 import ProductsMongoManager from './dao/ProductsMongoManager.js'
 
@@ -23,6 +24,8 @@ import path from 'path';
 const currentDir = path.dirname(__filename); */
 
 console.log(__dirname, "desde app")
+
+const PORT = config.PORT
 
 let serverSocket
 /* console.log(productRouter) */
@@ -58,7 +61,7 @@ app.use("/api/carts", cartRouter)
 
 /* app.use('/', viewsRouter) */
 
-const serverHTTP = app.listen(8080, () => console.log("Listening on Port 8080"))
+const serverHTTP = app.listen(PORT, () => console.log(`Escuchando en el puerto ${PORT}`))
 
 serverSocket = new Server(serverHTTP)
 

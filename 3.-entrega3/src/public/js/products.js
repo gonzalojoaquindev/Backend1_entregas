@@ -47,7 +47,7 @@ const getProducts = async () => {
         container.classList.add('col', 's4', 'm4')
         card.classList.add('card', 'blue-grey', 'darken-1')
         content.classList.add('card-content', 'white-text')
-        title.classList.add('card-title')
+        title.classList.add('card-title', 'white-text')
         category.classList.add("new", "badge", "orange")
         action.classList.add('card-action')
         icon.classList.add('material-icons')
