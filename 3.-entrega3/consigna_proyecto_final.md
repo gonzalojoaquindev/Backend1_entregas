@@ -57,7 +57,7 @@ Contar con el botón de “agregar al carrito” directamente, sin necesidad de 
 
 ## Carts
 
-* [ ] Además, agregar una vista en ‘/carts/:cid (cartId) para visualizar un carrito específico, donde se deberán listar SOLO los productos que pertenezcan a dicho carrito. 
+* [X] ~~*Además, agregar una vista en ‘/carts/:cid (cartId) para visualizar un carrito específico, donde se deberán listar SOLO los productos que pertenezcan a dicho carrito.*~~ [2024-09-19] 
 
 
 clase 16 mongo avanzado
